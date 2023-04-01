@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:14.18.1-alpine as build
+FROM node:14.18.1-alpine
 
 # Set the working directory to /app
 WORKDIR /app
@@ -20,7 +20,7 @@ RUN npm run build --prod
 FROM nginx:1.21.3-alpine
 
 # Copy the build output from the previous stage to the default nginx public directory
-COPY --from=build /app/dist/crudtuto-Front /usr/share/nginx/html
+COPY /app/dist/crudtuto-Front /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
