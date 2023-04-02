@@ -1,19 +1,23 @@
-# Use the official Node.js runtime as a parent image
-FROM node:14.21.3-alpine3.17
+# Use the official Node.js image as the base image
+FROM node:14
+
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
-COPY package*.json ./
+# Copy the source code to the working directory
+COPY . /app
 
-# Install dependencies
-RUN npm install -f
+# Install the dependencies
+RUN npm install
 
-# Copy the rest of the application code to the container
-COPY . .
+# Install the Angular CLI
+RUN npm install -g @angular/cli
 
-# Expose port 4200 for the application
+# Build the application
+RUN ng build --prod --output-path=dist
+
+# Expose the port
 EXPOSE 4200
 
-# Set the command to run when the container starts
-CMD ["npm", "start"]
+# Start the application
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
