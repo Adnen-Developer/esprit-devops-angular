@@ -21,8 +21,3 @@ EXPOSE 4200
 
 # Start the application
 CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
-
-
-# Set the image build version
-ARG BUILD_VERSION
-ENV BUILD_VERSION ${BUILD_VERSION:-unknown}
